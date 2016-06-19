@@ -10,6 +10,7 @@
 #include <QMouseEvent>
 #include <iostream>
 #include <QMessageBox>
+#include <QPushButton>
 
 #include <gameitem.h>
 #include <land.h>
@@ -38,12 +39,8 @@ private slots:
     void tick();
     // For debug slot
     void QUITSLOT();
-
     void boundaryCheck();
-
-    void on_pushButton_clicked();
-
-    void on_pushButton_2_clicked();
+    void on_Reset_clicked();
 
 private:
     Ui::MainWindow *ui;
@@ -56,6 +53,7 @@ private:
     float xBegin, xEnd, yBegin, yEnd, numBird;
     bool flying, flag, end;
     int score;
+    QPushButton *Reset, *Quit;
 };
 
 #endif // MAINWINDOW_H

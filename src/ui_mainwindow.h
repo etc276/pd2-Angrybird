@@ -17,7 +17,6 @@
 #include <QtWidgets/QHeaderView>
 #include <QtWidgets/QLabel>
 #include <QtWidgets/QMainWindow>
-#include <QtWidgets/QPushButton>
 #include <QtWidgets/QWidget>
 
 QT_BEGIN_NAMESPACE
@@ -27,8 +26,6 @@ class Ui_MainWindow
 public:
     QWidget *centralWidget;
     QGraphicsView *graphicsView;
-    QPushButton *pushButton;
-    QPushButton *pushButton_2;
     QLabel *label_Score;
 
     void setupUi(QMainWindow *MainWindow)
@@ -49,12 +46,6 @@ public:
         graphicsView = new QGraphicsView(centralWidget);
         graphicsView->setObjectName(QStringLiteral("graphicsView"));
         graphicsView->setGeometry(QRect(0, 0, 961, 541));
-        pushButton = new QPushButton(centralWidget);
-        pushButton->setObjectName(QStringLiteral("pushButton"));
-        pushButton->setGeometry(QRect(-1, -1, 161, 81));
-        pushButton_2 = new QPushButton(centralWidget);
-        pushButton_2->setObjectName(QStringLiteral("pushButton_2"));
-        pushButton_2->setGeometry(QRect(-1, 77, 161, 91));
         label_Score = new QLabel(centralWidget);
         label_Score->setObjectName(QStringLiteral("label_Score"));
         label_Score->setGeometry(QRect(490, 0, 411, 181));
@@ -68,8 +59,6 @@ public:
     void retranslateUi(QMainWindow *MainWindow)
     {
         MainWindow->setWindowTitle(QApplication::translate("MainWindow", "MainWindow", 0));
-        pushButton->setText(QApplication::translate("MainWindow", "RESTART", 0));
-        pushButton_2->setText(QApplication::translate("MainWindow", "END", 0));
         label_Score->setText(QApplication::translate("MainWindow", "TextLabel", 0));
     } // retranslateUi
 

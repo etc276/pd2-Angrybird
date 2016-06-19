@@ -10,5 +10,6 @@
         <file alias="blockT.png">image/thinwood.png</file>
         <file alias="restart.png">image/restart.png</file>
         <file alias="end.png">image/exit.png</file>
+        <file alias="bg.jpg">image/274392.jpg</file>
     </qresource>
 </RCC>

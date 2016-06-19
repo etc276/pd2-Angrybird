@@ -11,6 +11,7 @@ MainWindow::MainWindow(QWidget *parent) :
 
     ui->graphicsView->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
     ui->graphicsView->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+    ui->graphicsView->setBackgroundBrush(QPixmap(":/bg.jpg").scaled(960, 540));
 
     // Initionize
     numBird = 4;
@@ -18,8 +19,6 @@ MainWindow::MainWindow(QWidget *parent) :
     flag = true;
     end = false;
     score = 0;
-    ui->pushButton->setStyleSheet(":/restart.png");
-    ui->pushButton->setStyleSheet("#pushButton_2{border-image:url(:/end.png)}");
     ui->label_Score->setFont(QFont("Courier New", 25, QFont::Bold));
 
 }
@@ -57,6 +56,20 @@ void MainWindow::showEvent(QShowEvent *)
     block3 = new Block(20.0f, 10.0f, 16.2f, 0.54f, &timer, QPixmap(":/blockT.png").scaled(16.2*32,0.27*125),world,scene);
     //block4 = new Block(17.5f, 20.0f, 0.27f, 1.89f, &timer, QPixmap(":/block.png").scaled(0.27*125, 1.89*50),world,scene);
 
+    Reset = new QPushButton(this);
+    Reset->setGeometry(30,10,125,125);
+    connect(Reset, SIGNAL (released()), this, SLOT (on_Reset_clicked()));
+    Reset->setObjectName("Reset");
+    Reset->show();
+    Reset->setStyleSheet("#Reset{border-image:url(:/restart.png)}");
+
+
+    Quit = new QPushButton(this);
+    Quit->setGeometry(160,10,125,125);
+    connect(Quit, SIGNAL (released()), this, SLOT (close()));
+    Quit->setObjectName("Quit");
+    Quit->show();
+    Quit->setStyleSheet("#Quit{border-image:url(:/end.png)}");
 
     // Timer
     connect(&timer,SIGNAL(timeout()),this,SLOT(tick()));
@@ -153,18 +166,13 @@ void MainWindow::QUITSLOT()
     std::cout << "Quit Game Signal receive !" << std::endl ;
 }
 
-void MainWindow::on_pushButton_clicked()
+void MainWindow::on_Reset_clicked()
 {
     MainWindow *c = new MainWindow();
     c->show();
     hide();
 }
 
-void MainWindow::on_pushButton_2_clicked()
-{
-    emit quitGame();
-    exit(0);
-}
 
 void MainWindow::boundaryCheck()
 {
