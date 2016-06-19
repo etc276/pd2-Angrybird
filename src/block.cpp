@@ -38,3 +38,19 @@ int Block::getScore()
     double Vy = g_body->GetLinearVelocity().y;
     return (int)sqrt(Vx*Vx + Vy*Vy);
 }
+
+bool Block::checkX()
+{
+    return g_body->GetPosition().x>40 || g_body->GetPosition().x<0;
+}
+
+bool Block::checkY()
+{
+    return g_body->GetPosition().y>20 || g_body->GetPosition().x<0;
+}
+
+void Block::change()
+{
+    g_body->SetLinearVelocity(b2Vec2(0,0));
+    g_body->SetType(b2_staticBody);
+}

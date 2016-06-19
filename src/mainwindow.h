@@ -39,6 +39,8 @@ private slots:
     // For debug slot
     void QUITSLOT();
 
+    void boundaryCheck();
+
     void on_pushButton_clicked();
 
     void on_pushButton_2_clicked();
@@ -49,8 +51,8 @@ private:
     b2World *world;
     QList<GameItem *> itemList;
     QTimer timer;
-    Bird *birdR, *birdY, *birdG, *birdB, *pig;
-    Block *block1, *block2, *block3;
+    Bird *birdR, *birdY, *birdG, *birdB, *pig1, *pig2;
+    Block *block1, *block2, *block3, *block4;
     float xBegin, xEnd, yBegin, yEnd, numBird;
     bool flying, flag, end;
     int score;

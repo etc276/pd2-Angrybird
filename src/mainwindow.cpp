@@ -18,10 +18,10 @@ MainWindow::MainWindow(QWidget *parent) :
     flag = true;
     end = false;
     score = 0;
-
-    ui->pushButton->setStyleSheet("#pushButton{border-image:url(:/restart.png)}");
+    ui->pushButton->setStyleSheet(":/restart.png");
     ui->pushButton->setStyleSheet("#pushButton_2{border-image:url(:/end.png)}");
     ui->label_Score->setFont(QFont("Courier New", 25, QFont::Bold));
+
 }
 
 MainWindow::~MainWindow()
@@ -50,14 +50,17 @@ void MainWindow::showEvent(QShowEvent *)
     birdG = new Bird(4.0f,5.0f,0.27f,&timer,QPixmap(":/birdG.png").scaled(height()/9.0,height()/9.0),world,scene);
     birdB = new Bird(6.0f,5.0f,0.27f,&timer,QPixmap(":/birdB.png").scaled(height()/9.0,height()/9.0),world,scene);
 
-    pig = new Bird(20.0f,5.0f,0.27f,&timer,QPixmap(":/pig.png").scaled(height()/9.0,height()/9.0),world,scene);
+    pig1 = new Bird(20.0f,5.0f,0.27f,&timer,QPixmap(":/pig.png").scaled(height()/9.0,height()/9.0),world,scene);
+    //pig2 = new Bird(20.0f,30.0f,0.27f,&timer,QPixmap(":/pig.png").scaled(height()/9.0,height()/9.0),world,scene);
     block1 = new Block(15.0f, 5.0f, 0.27f, 1.89f, &timer, QPixmap(":/block.png").scaled(0.27*125, 1.89*50),world,scene);
     block2 = new Block(25.0f, 5.0f, 0.27f, 1.89f, &timer, QPixmap(":/block.png").scaled(0.27*125, 1.89*50),world,scene);
-    block3 = new Block(20.0f, 7.0f, 16.2f, 0.27f, &timer, QPixmap(":/blockT.png").scaled(16.2*32,0.27*125),world,scene);
+    block3 = new Block(20.0f, 10.0f, 16.2f, 0.54f, &timer, QPixmap(":/blockT.png").scaled(16.2*32,0.27*125),world,scene);
+    //block4 = new Block(17.5f, 20.0f, 0.27f, 1.89f, &timer, QPixmap(":/block.png").scaled(0.27*125, 1.89*50),world,scene);
 
 
     // Timer
     connect(&timer,SIGNAL(timeout()),this,SLOT(tick()));
+    connect(&timer,SIGNAL(timeout()),this,SLOT(boundaryCheck()));
     connect(this,SIGNAL(quitGame()),this,SLOT(QUITSLOT()));
     timer.start(100/6);
 
@@ -137,19 +140,11 @@ void MainWindow::tick()
     score += block2->getScore();
     score += block3->getScore();
 
-    score += pig->getScore()*10;
+    score += pig1->getScore()*10;
 
     QString Score = "Score:";
     Score += QString::number(score);
     ui->label_Score->setText(Score);
-
-    if (end==false && numBird<0)
-    {
-        end = true;
-        QMessageBox::information(NULL, " F I N A L ~","\n good bye?");
-        emit quitGame();
-        exit(0);
-    }
 }
 
 void MainWindow::QUITSLOT()
@@ -162,11 +157,18 @@ void MainWindow::on_pushButton_clicked()
 {
     MainWindow *c = new MainWindow();
     c->show();
-    close();
+    hide();
 }
 
 void MainWindow::on_pushButton_2_clicked()
 {
     emit quitGame();
     exit(0);
+}
+
+void MainWindow::boundaryCheck()
+{
+    if (block1->checkX() || block1->checkY()) block1->change();
+    if (block2->checkX() || block2->checkY()) block2->change();
+    if (block3->checkX() || block3->checkY()) block3->change();
 }
